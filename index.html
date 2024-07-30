@@ -1,0 +1,368 @@
+<html><head><base href="https://your_redirect_uri_here#access_token=simulated_access_token&scope=user:read:subscriptions&token_type=bearer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suivi de Bankroll Poker - Mindset Positif</title>
+<style>
+:root {
+  --primary-color: #6441a5;
+  --secondary-color: #0e9dd9;
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+nav {
+  background-color: var(--secondary-color);
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--secondary-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+}
+
+th {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+  <header>
+    <h1>Suivi de Bankroll Poker - Mindset Positif</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#dashboard">Tableau de bord</a></li>
+      <li><a href="#bankrolls">Mes Bankrolls</a></li>
+      <li><a href="#sessions">Sessions</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h2>Bienvenue sur votre tableau de bord de suivi de bankroll!</h2>
+    
+    <div id="bankrolls">
+      <h3>Mes Bankrolls</h3>
+      <button id="addBankrollBtn" class="btn">Ajouter une nouvelle bankroll</button>
+      <table id="bankrollTable">
+        <thead>
+          <tr>
+            <th>Salle de Poker</th>
+            <th>Date de création</th>
+            <th>Montant initial</th>
+            <th>Montant actuel</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Les données seront insérées ici dynamiquement -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="sessions">
+      <h3>Sessions récentes</h3>
+      <button id="addSessionBtn" class="btn">Ajouter une nouvelle session</button>
+      <table id="sessionTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Salle de Poker</th>
+            <th>Nombre de MTT joués</th>
+            <th>Total des buy-in</th>
+            <th>Résultat</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Les données seront insérées ici dynamiquement -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal pour ajouter/modifier une bankroll -->
+  <div id="bankrollModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Ajouter/Modifier une Bankroll</h2>
+      <form id="bankrollForm">
+        <label for="pokerRoom">Salle de Poker:</label>
+        <select id="pokerRoom" required>
+          <option value="">Choisir une salle</option>
+          <option value="winamax">Winamax</option>
+          <option value="unibet">Unibet</option>
+          <option value="pmu">PMU</option>
+          <option value="pokerstars">PokerStars</option>
+          <option value="partypoker">PartyPoker</option>
+          <option value="betclic">Betclic</option>
+          <option value="fdj">FDJ</option>
+        </select><br><br>
+        <label for="startDate">Date de création:</label>
+        <input type="date" id="startDate" required><br><br>
+        <label for="initialAmount">Montant initial:</label>
+        <input type="number" id="initialAmount" step="0.01" required><br><br>
+        <button type="submit" class="btn">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal pour ajouter/modifier une session -->
+  <div id="sessionModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Ajouter/Modifier une Session</h2>
+      <form id="sessionForm">
+        <label for="sessionDate">Date:</label>
+        <input type="date" id="sessionDate" required><br><br>
+        <label for="sessionRoom">Salle de Poker:</label>
+        <select id="sessionRoom" required>
+          <!-- Options will be populated dynamically based on existing bankrolls -->
+        </select><br><br>
+        <label for="mttCount">Nombre de MTT joués:</label>
+        <input type="number" id="mttCount" required><br><br>
+        <label for="buyInTotal">Total des buy-in:</label>
+        <input type="number" id="buyInTotal" step="0.01" required><br><br>
+        <label for="sessionResult">Résultat:</label>
+        <input type="number" id="sessionResult" step="0.01" required><br><br>
+        <button type="submit" class="btn">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Simulated data
+    let bankrolls = [];
+    let sessions = [];
+
+    // DOM Elements
+    const bankrollTable = document.getElementById('bankrollTable');
+    const sessionTable = document.getElementById('sessionTable');
+    const addBankrollBtn = document.getElementById('addBankrollBtn');
+    const addSessionBtn = document.getElementById('addSessionBtn');
+    const bankrollModal = document.getElementById('bankrollModal');
+    const sessionModal = document.getElementById('sessionModal');
+    const bankrollForm = document.getElementById('bankrollForm');
+    const sessionForm = document.getElementById('sessionForm');
+    const closeBtns = document.getElementsByClassName('close');
+
+    // Event Listeners
+    addBankrollBtn.onclick = () => bankrollModal.style.display = "block";
+    addSessionBtn.onclick = () => {
+      populateRoomSelect();
+      sessionModal.style.display = "block";
+    }
+
+    for (let closeBtn of closeBtns) {
+      closeBtn.onclick = function() {
+        bankrollModal.style.display = "none";
+        sessionModal.style.display = "none";
+      }
+    }
+
+    bankrollForm.onsubmit = function(e) {
+      e.preventDefault();
+      const room = document.getElementById('pokerRoom').value;
+      const date = document.getElementById('startDate').value;
+      const amount = parseFloat(document.getElementById('initialAmount').value);
+      
+      if (bankrolls.some(b => b.room === room)) {
+        alert('Une bankroll pour cette salle existe déjà. Veuillez la supprimer avant d\'en créer une nouvelle.');
+        return;
+      }
+      
+      bankrolls.push({room, date, initialAmount: amount, currentAmount: amount});
+      updateBankrollTable();
+      bankrollModal.style.display = "none";
+    }
+
+    sessionForm.onsubmit = function(e) {
+      e.preventDefault();
+      const date = document.getElementById('sessionDate').value;
+      const room = document.getElementById('sessionRoom').value;
+      const mttCount = parseInt(document.getElementById('mttCount').value);
+      const buyInTotal = parseFloat(document.getElementById('buyInTotal').value);
+      const result = parseFloat(document.getElementById('sessionResult').value);
+      
+      sessions.push({date, room, mttCount, buyInTotal, result});
+      updateSessionTable();
+      updateBankrollAmount(room, result);
+      sessionModal.style.display = "none";
+    }
+
+    function updateBankrollTable() {
+      const tbody = bankrollTable.getElementsByTagName('tbody')[0];
+      tbody.innerHTML = '';
+      for (let bankroll of bankrolls) {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+          <td>${bankroll.room}</td>
+          <td>${bankroll.date}</td>
+          <td>${bankroll.initialAmount.toFixed(2)} €</td>
+          <td>${bankroll.currentAmount.toFixed(2)} €</td>
+          <td><button onclick="deleteBankroll('${bankroll.room}')" class="btn">Supprimer</button></td>
+        `;
+      }
+    }
+
+    function updateSessionTable() {
+      const tbody = sessionTable.getElementsByTagName('tbody')[0];
+      tbody.innerHTML = '';
+      for (let session of sessions) {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+          <td>${session.date}</td>
+          <td>${session.room}</td>
+          <td>${session.mttCount}</td>
+          <td>${session.buyInTotal.toFixed(2)} €</td>
+          <td>${session.result.toFixed(2)} €</td>
+          <td><button onclick="deleteSession(${sessions.indexOf(session)})" class="btn">Supprimer</button></td>
+        `;
+      }
+    }
+
+    function updateBankrollAmount(room, amount) {
+      const bankroll = bankrolls.find(b => b.room === room);
+      if (bankroll) {
+        bankroll.currentAmount += amount;
+        updateBankrollTable();
+      }
+    }
+
+    function deleteBankroll(room) {
+      bankrolls = bankrolls.filter(b => b.room !== room);
+      updateBankrollTable();
+    }
+
+    function deleteSession(index) {
+      const session = sessions[index];
+      updateBankrollAmount(session.room, -session.result);
+      sessions.splice(index, 1);
+      updateSessionTable();
+    }
+
+    function populateRoomSelect() {
+      const select = document.getElementById('sessionRoom');
+      select.innerHTML = '';
+      for (let bankroll of bankrolls) {
+        const option = document.createElement('option');
+        option.value = bankroll.room;
+        option.textContent = bankroll.room;
+        select.appendChild(option);
+      }
+    }
+
+    // Initialize tables
+    updateBankrollTable();
+    updateSessionTable();
+
+  </script>
+</body>
+</html>
